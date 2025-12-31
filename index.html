@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Honeybee Cafe Secret Leave Form</title>
+    <style>
+        /* Mobile-first responsive styles */
+        @media (max-width: 768px) {
+            #passwordGate {
+                margin: 20px auto;
+                padding: 20px 15px;
+                max-width: 95%;
+            }
+            
+            #formContainer > div {
+                margin: 15px auto;
+                padding: 20px 15px;
+                max-width: 95%;
+            }
+            
+            h1, h2, h3 {
+                font-size: 1.2em !important;
+                margin: 8px 0 !important;
+            }
+            
+            /* Mobile-friendly input fields */
+            input, select, textarea {
+                font-size: 16px !important; /* Prevents iOS zoom on focus */
+                padding: 12px !important;
+            }
+            
+            /* IC Number fields - more compact layout */
+            .ic-container {
+                display: grid !important;
+                grid-template-columns: 1fr auto 1fr auto 1fr;
+                gap: 5px !important;
+                align-items: center;
+            }
+            
+            .ic-container input {
+                width: 100% !important;
+                min-width: 0 !important;
+                text-align: center;
+            }
+            
+            .ic-separator {
+                text-align: center;
+                font-weight: bold;
+                color: #666;
+                font-size: 18px;
+            }
+                        
+            /* Carousel adjustments for mobile */
+            #imageCarousel {
+                max-width: 100% !important;
+            }
+            
+            #prevBtn, #nextBtn {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 18px !important;
+            }
+            
+            /* Reduce spacing on mobile */
+            #leaveForm {
+                gap: 12px !important;
+            }
+            
+            /* Terms & Conditions smaller text on mobile */
+            .terms-box {
+                font-size: 13px !important;
+                padding: 12px !important;
+            }
+            
+            /* Submit button full width on mobile */
+            button[type="submit"] {
+                width: 100% !important;
+            }
+            
+            /* Password input full width */
+            #passwordInput {
+                max-width: 100% !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            #passwordGate, #formContainer > div {
+                padding: 15px 10px;
+                max-width: 98%;
+            }
+            
+            h1 {
+                font-size: 1.1em !important;
+            }
+            
+            h2 {
+                font-size: 1em !important;
+            }
+            
+            /* More compact IC fields on very small screens */
+            .ic-container {
+                grid-template-columns: 1fr auto 1fr auto 1fr;
+                gap: 3px !important;
+            }
+            
+            .ic-separator {
+                font-size: 16px;
+                padding: 0 2px;
+            }
+            
+            .carouselDot {
+                width: 8px !important;
+                height: 8px !important;
+            }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 769px) {
+            /* IC Number fields - compact inline layout */
+            .ic-container {
+                display: flex !important;
+                align-items: center !important;
+                gap: 5px !important;
+            }
+            
+            .ic-container input {
+                flex: 1 !important;
+                min-width: 0 !important;
+                text-align: center;
+            }
+            
+            .ic-separator {
+                font-weight: bold;
+                color: #666;
+                padding: 0 5px;
+            }
+        }
+        
+        /* Prevent horizontal scrolling */
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Improve touch targets */
+        button, input[type="checkbox"] {
+            min-height: 44px; /* Minimum touch target size */
+        }
+        
+        .carouselDot {
+            min-height: 12px; /* Better touch target for dots */
+        }
+        
+        /* Better input styling */
+        input[type="text"], input[type="number"], input[type="email"], select, textarea {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Password Gate -->
+<div id="passwordGate" 
+     style="max-width:400px;margin:60px auto;padding:30px;background:#f9f9f9;
+            border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.1);
+            text-align:center;font-family:Arial,sans-serif;">
+  
+  <h1 style="margin-bottom:10px;color:#222;font-size:22px;font-weight:700;">
+    🏝️ Secret Leave Form
+  </h1>
+  <h2 style="margin-bottom:20px;color:#333;font-size:22px;font-weight:600;">
+    🔒 Secure Access
+  </h2>
+  <p style="margin-bottom:20px;color:#555;font-size:15px;">
+    Please enter the password to access this form
+  </p>
+
+  <input 
+    type="password" 
+    id="passwordInput" 
+    placeholder="Enter Password"
+    inputmode="numeric" 
+    pattern="[0-9]*" 
+    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+    style="padding:12px 14px;font-size:16px;width:100%;max-width:260px;
+           border:1px solid #ccc;border-radius:8px;outline:none;
+           transition:0.3s;"
+    onfocus="this.style.borderColor='#4a90e2';"
+    onblur="this.style.borderColor='#ccc';"
+  />
+
+  <br><br>
+
+  <button onclick="checkPassword()" 
+          style="padding:12px 20px;font-size:16px;background:#4a90e2;
+                 color:#fff;border:none;border-radius:8px;cursor:pointer;
+                 transition:0.3s;min-height:44px;">
+    Submit
+  </button>
+  <p id="passwordError" 
+   style="color:#d93025;display:none;margin-top:15px;font-size:14px;line-height:1.4;">
+   ❌ Incorrect password, Please contact your Admin.
+</p>
+</div>
+
+<!-- Hidden Form (only shows after password) -->
+<div id="formContainer" style="display:none;">
+
+  <!-- Wrapper -->
+  <div style="max-width:900px;margin:30px auto;padding:30px;background:#f7b3b3;
+              border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.10);
+              font-family:Arial, sans-serif;">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:18px;">
+      <img src="https://i.imgur.com/7nlLfrw.jpeg" alt="Logo" 
+       style="max-height:80px; max-width:100%; width:auto; height:auto; display:block; margin:0 auto;">
+      <h2 style="margin:10px 0 0 0;color:#333;font-weight:700;">
+        HONEYBEE CAFE SDN BHD
+      </h2>
+      <h3 style="margin:6px 0 18px 0;color:#333333;font-weight:500;">
+        Secret Leave Application Form
+      </h3>
+    </div>
+
+<!-- Instructions + image carousel -->
+<div style="text-align:center;margin-bottom:18px;color:#444;">
+  <p style="margin:0 0 12px 0;">
+    Sila baca <b>"Jenis cuti dan Syarat Kegunaan"</b> di bawah sebelum mengisi Borang Permohonan Cuti
+  </p>
+  
+  <!-- Carousel Container -->
+  <div id="imageCarousel" style="position:relative;width:100%;max-width:800px;margin:0 auto;overflow:hidden;border-radius:8px;">
+    
+    <!-- Carousel Images -->
+    <div id="carouselImages" style="display:flex;transition:transform 0.5s ease;">
+      <!-- Slide 1 -->
+      <div style="min-width:100%;">
+        <img src="https://i.imgur.com/mimR9AP.jpeg" 
+             alt="Instruction 1"
+             style="width:100%;height:auto;border-radius:8px;display:block;"
+             onerror="this.style.display='none'">
+      </div>
+      <!-- Slide 2 -->
+      <div style="min-width:100%;">
+        <img src="https://i.imgur.com/9gJ0lEA.jpeg" 
+             alt="Instruction 2"
+             style="width:100%;height:auto;border-radius:8px;display:block;"
+             onerror="this.style.display='none'">
+      </div>
+      <!-- Slide 3 -->
+      <div style="min-width:100%;">
+        <img src="https://i.imgur.com/c1Brp7x.jpeg" 
+             alt="Instruction 3"
+             style="width:100%;height:auto;border-radius:8px;display:block;"
+             onerror="this.style.display='none'">
+      </div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <button id="prevBtn" 
+            style="position:absolute;top:50%;left:10px;transform:translateY(-50%);
+                   background:rgba(0,0,0,0.5);color:white;border:none;
+                   border-radius:50%;width:40px;height:40px;cursor:pointer;
+                   font-size:20px;display:flex;align-items:center;justify-content:center;">
+      ‹
+    </button>
+    <button id="nextBtn" 
+            style="position:absolute;top:50%;right:10px;transform:translateY(-50%);
+                   background:rgba(0,0,0,0.5);color:white;border:none;
+                   border-radius:50%;width:40px;height:40px;cursor:pointer;
+                   font-size:20px;display:flex;align-items:center;justify-content:center;">
+      ›
+    </button>
+    
+    <!-- Dots Indicator -->
+    <div style="position:absolute;bottom:15px;left:0;right:0;display:flex;justify-content:center;gap:8px;">
+      <span class="carouselDot" style="width:10px;height:10px;background:white;border-radius:50%;cursor:pointer;opacity:0.7;"></span>
+      <span class="carouselDot" style="width:10px;height:10px;background:white;border-radius:50%;cursor:pointer;opacity:0.7;"></span>
+      <span class="carouselDot" style="width:10px;height:10px;background:white;border-radius:50%;cursor:pointer;opacity:0.7;"></span>
+    </div>
+  </div>
+</div>
+
+  <!-- Form -->
+  <form id="leaveForm" style="display:flex;flex-direction:column;gap:14px;" onsubmit="submitForm(event)">
+
+    <!-- Full Name -->
+<label for="fullname" style="font-weight:600;">Nama Penuh <span style="color:red;">*</span></label>
+<input type="text" id="fullname" name="fullname" required
+       placeholder="ISI NAMA PENUH ANDA DI SINI..."
+       style="text-transform:uppercase;padding:10px;border-radius:8px;border:1px solid #ccc;width:100%;box-sizing:border-box;">
+
+    <!-- IC Number - COMPACT VERSION -->
+<label style="font-weight:600;">No. Kad Pengenalan (I.C.): <span style="color:red">*</span></label>
+<div class="ic-container">
+  <input type="text" name="ic1" id="ic1" placeholder="990123" maxlength="6" required
+         oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+         style="padding:10px;border-radius:6px;border:1px solid #ccc;">
+  <div class="ic-separator">-</div>
+  <input type="text" name="ic2" id="ic2" placeholder="12" maxlength="2" required
+         oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+         style="padding:10px;border-radius:6px;border:1px solid #ccc;">
+  <div class="ic-separator">-</div>
+  <input type="text" name="ic3" id="ic3" placeholder="0123" maxlength="4" required
+         oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+         style="padding:10px;border-radius:6px;border:1px solid #ccc;">
+</div>
+
+<!-- Contact Number -->
+<label style="font-weight:600;">No. Telefon: <span style="color:red">*</span></label>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+  <input type="text" name="phone1" id="phone1" placeholder="012" maxlength="3" required
+         oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+         style="padding:10px;border-radius:8px;border:1px solid #ccc;flex:1;min-width:60px;">
+  <input type="text" name="phone2" id="phone2" placeholder="3456789" required
+         oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+         style="padding:10px;border-radius:8px;border:1px solid #ccc;flex:3;min-width:150px;">
+</div>
+
+<!-- Email Address -->
+<label for="email" style="font-weight:600;">Emel: <span style="color:red">*</span></label>
+<input type="email" name="email" id="email" placeholder="Contoh: example@email.com" required
+       oninput="this.value = this.value.toLowerCase().replace(/\s/g, '');"
+       style="padding:10px;border-radius:8px;border:1px solid #ccc;width:100%;box-sizing:border-box;">
+
+    <!-- Type of Leave -->
+    <label style="font-weight:600;">Jenis Cuti: <span style="color:red">*</span></label>
+    <select name="leaveType" id="leaveType" required
+            style="padding:10px;border-radius:8px;border:1px solid #ccc;width:100%;">
+      <option value="" disabled selected>Jenis Cuti</option>
+      <option value="RPH - Replace Public Holiday">RPH - Replace Public Holiday</option>
+      <option value="AL - Annual Leave">AL - Annual Leave</option>
+      <option value="RL - Replace Leave">RL - Replace Leave</option>
+      <option value="NS - Non Salary Leave">NS - Non Salary Leave</option>
+      <option value="SL - Sick Leave">SL - Sick Leave</option>
+    </select>
+
+    <!-- Total Days (numeric) -->
+    <label style="font-weight:600;">Jumlah Hari: <span style="color:red">*</span></label>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <input type="number" name="days" id="days" min="1" required
+             placeholder="Contoh: 3"
+             oninput="this.value = this.value.replace(/^0+/, '')"
+             style="padding:10px;border-radius:8px;border:1px solid #ccc;width:120px;">
+      <span style="font-weight:600;">Hari</span>
+    </div>
+
+    <!-- Date of Leave -->
+<label for="dateLeave" style="font-weight:600;">Tarikh Cuti <span style="color:red">*</span></label>
+<textarea 
+  name="dateLeave" 
+  id="dateLeave" 
+  placeholder="Contoh: 01/02-03/02 atau 01/02/25-03/02/25"
+  style="min-height:60px;padding:10px;border-radius:8px;border:1px solid #ccc;width:100%;box-sizing:border-box;overflow:hidden;resize:none;"
+  oninput="autoResize(this)" required>
+</textarea>
+
+<!-- Reason -->
+<label for="reason" style="font-weight:600;">Sebab Permohonan <span style="color:red">*</span></label>
+<textarea 
+  name="reason" 
+  id="reason" 
+  placeholder="Isi sebab/tujuan anda memohon cuti di sini..."
+  style="min-height:80px;padding:10px;border-radius:8px;border:1px solid #ccc;width:100%;box-sizing:border-box;overflow:hidden;resize:none;"
+  oninput="autoResize(this)" required>
+</textarea>
+
+    <!-- Terms & Conditions -->
+<div class="terms-box" style="padding:15px;border:1px solid #ccc;border-radius:10px;background:#f9f9f9;line-height:1.6;font-size:14px;">
+  <b><u>Terma & Syarat</u></b>
+  <br><br>
+  Dengan menghantar borang ini,<br>
+  saya bersetuju dan faham "Jenis Cuti & Syarat Kegunaan" serta bahawa maklumat permohonanan tersebut adalah sahih dan benar. Pihak atasan berhak untuk MELULUSKAN atau MENOLAK permohonan tersebut sekiranya terdapat maklumat palsu di dalam permohonan atau atas sebab tertentu.
+  <br><br>
+  • Permohonan AL (Annual Leave) atau NS (Non-Salary) harus dibuat sekurang-kurangnya 3 hari sebelum dari tarikh yang dipohon<br>
+  • Sebarang permohonanan saat akhir (last minute) adalah tidak dilayani KECUALI atas sebab tertentu atau urusan kecemasan dan HARUS DIMAKLUMKAN kepada Pihak Atasan dahulu dan Supervisor<br>
+  • Permohonan saat akhir (last minute) tanpa makluman kepada Pihak Atasan dahulu dan Supervisor akan DITOLAK SERTA MERTA<br>
+  • Cuti tersebut akan dikira sebagai PONTENG apabila Staff mengambil cuti pada tarikh permohonan yang DITOLAK
+</div>
+
+    <!-- I AGREE -->
+    <label style="margin-top:6px;font-weight:600;display:flex;align-items:center;gap:8px;">
+      <input type="checkbox" name="agree" id="agree" required style="transform:scale(1.2);min-height:20px;"> 
+      SAYA SETUJU
+    </label>
+
+    <!-- Submit -->
+<button type="submit"
+        style="padding:12px;background:#e30102;color:#fff;border:none;border-radius:8px;
+               cursor:pointer;font-size:16px;font-weight:700;min-height:44px;">
+  SUBMIT
+</button>
+</form>
+
+<!-- Status box should be OUTSIDE the form -->
+<div id="statusBox" 
+     style="display:none;margin-top:15px;padding:12px;border-radius:6px;
+            font-weight:600;text-align:center;">
+</div>
+
+<script>
+
+// Carousel functionality - Initialize when form becomes visible
+function initCarousel() {
+  // Check if carousel elements exist
+  const carouselImages = document.getElementById('carouselImages');
+  if (!carouselImages) return;
+  
+  let currentSlide = 0;
+  const totalSlides = 3;
+  const dots = document.querySelectorAll('.carouselDot');
+  
+  // Update carousel position
+  function updateCarousel() {
+    carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+      dot.style.opacity = index === currentSlide ? '1' : '0.7';
+      dot.style.transform = index === currentSlide ? 'scale(1.2)' : 'scale(1)';
+    });
+  }
+  
+  // Next button
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    });
+  }
+  
+  // Previous button
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+  }
+  
+  // Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', function() {
+      currentSlide = index;
+      updateCarousel();
+    });
+  });
+  
+  // Initialize carousel
+  updateCarousel();
+}
+
+  const correctPassword = "1070632"; // ✅ set your password here
+
+  function checkPassword() {
+  var passwordInput = document.getElementById("passwordInput");
+  var passwordError = document.getElementById("passwordError");
+  var formContainer = document.getElementById("formContainer");
+
+  if (passwordInput.value === correctPassword) {
+    document.getElementById("passwordGate").style.display = "none";
+    formContainer.style.display = "block";
+    // Initialize carousel after form is visible
+    setTimeout(initCarousel, 100);
+  } else {
+    passwordError.style.display = "block";
+    passwordInput.value = ""; // clear input
+    passwordInput.focus();    // refocus
+
+    // Hide error after 3 seconds
+    setTimeout(() => {
+      passwordError.style.display = "none";
+    }, 3000);
+  }
+}
+
+// Replace YOUR_WEB_APP_URL_HERE with your deployed Apps Script Web App URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbz4AQscnb9Hw9B5oBVqaO0zVbRxeYPRq2iT-pxA0oWziKDTzHk0rsj2wXOYw0o7fdGY/exec";
+
+// Auto-uppercase Full Name, only letters + space
+document.getElementById("fullname").addEventListener("input", function() {
+  this.value = this.value.toUpperCase()
+                   .replace(/[^A-Z\s]/g, "")
+                   .replace(/\s+/g, " ")
+                   .trimStart();
+});
+
+// Auto-resize textareas (smooth expand)
+function autoResize(textarea) {
+  textarea.style.height = "auto"; 
+  textarea.style.height = textarea.scrollHeight + "px"; 
+}
+
+document.querySelectorAll("textarea").forEach(el => {
+  el.style.overflow = "hidden"; 
+  el.style.height = el.scrollHeight + "px"; 
+  el.addEventListener("input", () => autoResize(el));
+})
+
+// Show status messages
+function showStatus(message, status = "success") {
+  const statusBox = document.getElementById("statusBox");
+  statusBox.textContent = message;
+  statusBox.style.display = "block";
+
+  if (status === "loading") {
+    statusBox.style.background = "#dbeafe"; // Light blue
+    statusBox.style.color = "#1e3a8a";
+  } else if (status === "success") {
+    statusBox.style.background = "#d4edda"; // Light green
+    statusBox.style.color = "#155724";
+  } else if (status === "error") {
+    statusBox.style.background = "#f8d7da"; // Light red
+    statusBox.style.color = "#721c24";
+  }
+
+  if (status !== "loading") {
+    setTimeout(() => statusBox.style.display = "none", 4000);
+  }
+}
+
+// Form submission
+document.getElementById("leaveForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector("button[type='submit']");
+
+  const payload = {
+    fullname: form.fullname.value,
+    ic1: form.ic1.value,
+    ic2: form.ic2.value,
+    ic3: form.ic3.value,
+    phone1: form.phone1.value,
+    phone2: form.phone2.value,
+    email: form.email.value.toLowerCase().replace(/\s/g, ''),
+    leaveType: form.leaveType.value,
+    days: form.days.value,
+    dateLeave: form.dateLeave.value,
+    reason: form.reason.value,
+    agree: form.agree.checked ? "YES" : "NO"
+  };
+
+  // Validation
+  if (/[A-Za-z]/.test(payload.dateLeave)) {
+    showStatus("⚠️ Date of Leave cannot contain letters.", "error");
+    return;
+  }
+  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(payload.email)) {
+    showStatus("⚠️ Please enter a valid email address.", "error");
+    return;
+  }
+  
+  // Validate IC format
+  if (payload.ic1.length !== 6 || payload.ic2.length !== 2 || payload.ic3.length !== 4) {
+    showStatus("⚠️ Please enter a valid IC number (format: 990123-12-0123).", "error");
+    return;
+  }
+  
+  // Validate phone number
+  if (payload.phone1.length !== 3 || payload.phone2.length < 7) {
+    showStatus("⚠️ Please enter a valid phone number (format: 012-3456789).", "error");
+    return;
+  }
+  
+  const requiredFields = ["fullname","ic1","ic2","ic3","phone1","phone2","leaveType","days","dateLeave","reason"];
+  for (const field of requiredFields) {
+    if (!payload[field]) {
+      showStatus("⚠️ Please fill all required fields correctly.", "error");
+      return;
+    }
+  }
+  
+  if (!form.agree.checked) {
+    showStatus("⚠️ Please agree to the terms before submitting.", "error");
+    return;
+  }
+
+  // Show loading
+  showStatus("🔁 Submitting...", "loading");
+  submitBtn.disabled = true;
+
+  // Convert to URL-encoded
+  const formBody = Object.keys(payload)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(payload[key]))
+    .join("&");
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: formBody,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  })
+  .then(response => response.json())
+  .then(data => {
+    showStatus("✅ Leave Application Submitted Successfully!", "success");
+    form.reset();
+    document.querySelectorAll('textarea').forEach(el => autoResize(el));
+  })
+  .catch(err => {
+    console.error(err);
+    showStatus("❌ Submission failed. Please check Web App URL and permissions.", "error");
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+  });
+});
+
+// Mobile-specific enhancements
+window.addEventListener('resize', function() {
+  // Re-initialize carousel on orientation change
+  if (document.getElementById('formContainer').style.display === 'block') {
+    initCarousel();
+  }
+});
+
+// Auto-advance IC fields
+document.getElementById('ic1').addEventListener('input', function(e) {
+  if (this.value.length === 6) {
+    document.getElementById('ic2').focus();
+  }
+});
+
+document.getElementById('ic2').addEventListener('input', function(e) {
+  if (this.value.length === 2) {
+    document.getElementById('ic3').focus();
+  }
+});
+
+// Auto-advance phone fields
+document.getElementById('phone1').addEventListener('input', function(e) {
+  if (this.value.length === 3) {
+    document.getElementById('phone2').focus();
+  }
+});
+
+// Prevent zoom on input focus in iOS
+document.addEventListener('DOMContentLoaded', function() {
+  if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+    document.addEventListener('focus', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+        document.body.style.fontSize = '16px';
+      }
+    }, true);
+    
+    document.addEventListener('blur', function(e) {
+      document.body.style.fontSize = '';
+    }, true);
+  }
+});
+</script>
+
+</body>
+</html>
