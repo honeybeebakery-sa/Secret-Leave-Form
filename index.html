@@ -324,7 +324,7 @@
 <!-- Contact Number -->
 <label style="font-weight:600;">No. Telefon: <span style="color:red">*</span></label>
 <div style="display:flex;flex-wrap:wrap;gap:6px;">
-  <input type="text" name="phone1" id="phone1" placeholder="012" maxlength="3" required
+  <input type="text" name="phone1" id="phone1" placeholder="012" required
          oninput="this.value=this.value.replace(/[^0-9]/g,'')"
          style="padding:10px;border-radius:8px;border:1px solid #ccc;flex:1;min-width:60px;">
   <input type="text" name="phone2" id="phone2" placeholder="3456789" required
@@ -497,8 +497,7 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbz4AQscnb9Hw9B5oBVqaO
 // Auto-uppercase Full Name, only letters + space
 document.getElementById("fullname").addEventListener("input", function() {
   this.value = this.value.toUpperCase()
-                   .replace(/[^A-Z\s]/g, "")
-                   .replace(/\s+/g, " ")
+                   .replace(/[^A-Z\s]/g, " ")
                    .trimStart();
 });
 
@@ -650,3 +649,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
