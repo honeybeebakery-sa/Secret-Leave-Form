@@ -631,26 +631,6 @@ window.addEventListener('resize', function() {
   }
 });
 
-// Auto-advance IC fields
-document.getElementById('ic1').addEventListener('input', function(e) {
-  if (this.value.length === 6) {
-    document.getElementById('ic2').focus();
-  }
-});
-
-document.getElementById('ic2').addEventListener('input', function(e) {
-  if (this.value.length === 2) {
-    document.getElementById('ic3').focus();
-  }
-});
-
-// Auto-advance phone fields
-document.getElementById('phone1').addEventListener('input', function(e) {
-  if (this.value.length === 3) {
-    document.getElementById('phone2').focus();
-  }
-});
-
 // Prevent zoom on input focus in iOS
 document.addEventListener('DOMContentLoaded', function() {
   if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -668,4 +648,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 </body>
+
 </html>
